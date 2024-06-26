@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend ",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rishabh3562/Skai-Lama-FTE.git"
+  },
+  "author": "Rishabh Dubey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rishabh3562/Skai-Lama-FTE/issues"
+  },
+  "homepage": "https://github.com/rishabh3562/Skai-Lama-FTE#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.4.4",
+    "nodemon": "^3.1.4"
+  }
+}
