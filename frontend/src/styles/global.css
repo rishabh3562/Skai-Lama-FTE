@@ -1,0 +1,45 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  /* 
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --violet-main: #7e22ce;
+  --violet-light: #f3e8ff;
+  --text-gray: #838383;
+  --btn-black-home :#211935;
+  --btn-text-home:#F8F8F8;
+
+;
+}
+
+.container-90{
+    width: 90%;
+    margin: auto;
+}
+.container-80{
+    width: 80%;
+    margin: auto;
+}
+.container-95{
+    width: 95%;
+    margin: auto;
+}
+.container-85{
+    width: 85%;
+    margin: auto;
+}
+.icon-hover-logo:hover{
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+/* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+/* padding: .1rem; */
+
+}

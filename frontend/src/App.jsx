@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { Suspense, lazy } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Navbar from "./components/Navbar";
 
+const Home = lazy(() => import("./pages/Home"));
+const Project = lazy(() => import("./pages/Project"));
+const EditTranscript = lazy(() => import("./pages/EditTranscript"));
+const Configuration = lazy(() => import("./pages/Configuration"));
+const AccountSettings = lazy(() => import("./pages/AccountSettings"));
+const Error404 = lazy(()=>import ("./pages/Error404"))
+const BrowserRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>,
+  },
+  {
+    path: "/home",
+    element: <Home/>,
+  },
+  {
+    path: "/project",
+    element: <Project/>,
+  },
+  {
+    path: "/edit-transcript",
+    element: <EditTranscript/>,
+  },
+  {
+    path: "/configuration",
+    element: <Configuration/>,
+  },
+  {
+    path: "/account-settings",
+    element: <AccountSettings/>,
+  },
+  {
+    path: "*",
+    element: <Error404/>,
+  },
+]);
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Suspense fallback={<div>Loading...</div>}>
+      
+     <RouterProvider router={BrowserRouter} />
+      </Suspense>
     </>
-  )
+ 
+  );
 }
 
-export default App
+export default App;
