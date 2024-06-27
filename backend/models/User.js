@@ -7,14 +7,29 @@ const userSchema = new mongoose.Schema({
     unique: true
   },
   username: {
-    type: String,
-    required: true
+    type: String
+   
   },
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  activities: [
+    {
+      sessionId: {
+        type: String,
+        required: true
+      },
+      metadata: {
+        type: mongoose.Schema.Types.Mixed
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ]
 });
 
-module.exports = mongoose.model('User', userSchema);
-s
+const User = mongoose.model('User', userSchema);
+module.exports = User;

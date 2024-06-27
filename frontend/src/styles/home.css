@@ -4,10 +4,7 @@
     margin: 0 ;
     padding: 0;
 }
-.home{
-    /* height: 100vh; */
-    /* padding-bottom: 1rem; */
-}
+
 .text1{
     color: var(--violet-main);
 }
