@@ -11,12 +11,23 @@ export const EmailProvider = ({ children }) => {
   const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sessionId, setSessionId] = useState(null);
-
+const[userId,setUserId]=useState(null);
   useEffect(() => {
     const fetchEmail = async () => {
-      const storedEmail = Cookies.get("email");
+      const storedEmail = Cookies.get("email"); 
+    const storedSessionId = Cookies.get("sessionId");
+    const storedUserId = Cookies.get("userId");
+
       if (storedEmail) {
         setEmail(storedEmail);
+      }
+
+      if (storedSessionId) {
+        setSessionId(storedSessionId);
+      }
+
+      if (storedUserId) {
+        setUserId(storedUserId);
       }
       setLoading(false);
     };
@@ -34,7 +45,10 @@ export const EmailProvider = ({ children }) => {
       
       setEmail(emailInput);
       setSessionId(response.data.sessionId);
+      setUserId(response.data.userId);
       Cookies.set("email", emailInput, { expires: 7 }); // Store email in cookie for 7 days
+      Cookies.set("sessionId", response.data.sessionId, { expires: 7 }); // Store sessionId in cookie for 7 days
+      Cookies.set("userId", response.data.userId, { expires: 7 }); // Store userId in cookie for 7 days
     } catch (error) {
       console.error("Failed to save email:", error);
     }
@@ -42,7 +56,7 @@ export const EmailProvider = ({ children }) => {
 
   return (
     <EmailContext.Provider
-      value={{ email, setEmail, loading, saveEmail, sessionId }}
+      value={{ email, setEmail, loading, saveEmail, sessionId,userId,setUserId }}
     >
       {children}
     </EmailContext.Provider>

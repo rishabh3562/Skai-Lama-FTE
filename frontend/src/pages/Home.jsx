@@ -1,66 +1,77 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/logo_lama.svg";
-import logoText from "../assets/Lama_text.svg";
-import notificationIcon from "../assets/notifications.svg";
-import settingsIcon from "../assets/settings.svg";
-import addIcon from "../assets/plus.svg";
+import { useEmail } from "../context/EmailContext";
+import { useGetProjectListByUserEmail } from "../hooks/queryHooks/useGetProjectListByUserEmail";
+import LogoBar from "../components/Logobar";
+import HeadingText from "../components/HeadingText";
+import CreateProjectBtn from "../components/CreateProjectBtn";
 import heroImage from "../assets/Home.svg";
 import "../styles/home.css";
+import ProjectCard from "../components/ProjectCard";
 
+const HomeWithoutEmailAndProjects = () => (
+    <div className="container-95 home">
+        <LogoBar />
+        <section className="home-section container-85">
+            <HeadingText text={"Create a New Project "} type={1} />
+            <img src={heroImage} alt="Hero" className="heroImage" />
+            <p className="home-text container-80">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in.
+            </p>
+            <CreateProjectBtn />
+        </section>
+    </div>
+);
+
+const HomeWithEmailAndWithProjects = ({ projectList }) => (
+    <div className="container-95">
+        <LogoBar />
+        <section className="container-80">
+           <div className="home-header">
+
+            <HeadingText text={"Projects"} />
+            <CreateProjectBtn />
+           </div>
+            <div className="project-grid">
+                {projectList.map((project) => (
+                    <ProjectCard project={project} key={project._id} />
+                ))}
+            </div>
+        </section>
+    </div>
+);
+
+const Loading = () => (
+    <div className="container-95 home">
+        <LogoBar />
+        <section className="home-section container-85">
+            <HeadingText text={"Loading Projects..."} type={1} />
+            <p className="home-text container-80">Please wait while we load your projects.</p>
+        </section>
+    </div>
+);
 
 const Home = () => {
-  
-  return (
-    <>
-      {/* logo and notification */}
-      <div className="container-95 home">
-        <header className="home-header ">
-          <div className="logo-box icon-hover-logo">
-            <img src={logo} alt="" width={"38px"} height={"38px"} />
-            <img src={logoText} alt="" width={"74px"} height={"74px"} />
-          </div>
-          <div className="logo-box ">
-            <img
-              src={settingsIcon}
-              alt=""
-              width={"28px"}
-              height={"28px"}
-              className="icon-hover"
-            />
-            <img
-              src={notificationIcon}
-              alt=""
-              width={"28px"}
-              height={"28px"}
-              className="icon-hover"
-            />
-          </div>
-        </header>
-        {/* home page content */}
-        <section className="home-section container-85">
-          <h2 className="home-heading">Create a New Project </h2>
-          <img src={heroImage} alt="" className="heroImage" />
-          <p className="home-text container-80">
-            {" "}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in.
-          </p>
-          {/* create new button */}
-          <div className=" btn-home">
-            <img src={addIcon} alt="" width={"28px"} height={"28px"} />
-            <p className="btn-text-home">
-        
-              <Link to="/project">Create New Project</Link>
-            </p>
-          </div>
-        </section>
-      </div>
-    </>
-  );
+    const { email } = useEmail();
+   
+    const { data: projects, isLoading: isProjectsLoading, error } = useGetProjectListByUserEmail(email);
+
+    if (isProjectsLoading) {
+        return <Loading />;
+    }
+
+    return (
+        <>
+            {projects && projects.length > 0 ? (
+                <HomeWithEmailAndWithProjects projectList={projects} />
+            ) : (
+                <HomeWithoutEmailAndProjects />
+            )}
+        </>
+    );
 };
 
 export default Home;

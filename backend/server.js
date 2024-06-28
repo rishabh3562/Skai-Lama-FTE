@@ -12,7 +12,7 @@ const origin3 = process.env.ORIGIN3?.replace(/\/+$/, '');
 
 const allowedOrigins = [origin1, origin2, origin3].filter(Boolean); // Filter out any undefined values
 
-console.log("allowedOrigins ", allowedOrigins);
+// console.log("allowedOrigins ", allowedOrigins);
 
 // CORS configuration
 app.use(cors({
@@ -30,7 +30,7 @@ app.use(cors({
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
-
+app.use('/api/projects', require('./routes/projectRoutes'));
 // Default route
 app.get('/', (req, res) => {
     res.send('API is running...');

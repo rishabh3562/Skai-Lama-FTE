@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const { emailController, getUserEmailFromProjectId, getProjectsByUserEmail, listProjectsByUserEmail } = require('../controllers/userController');
 
-const { v4: uuidv4 } = require('uuid');
-const { emailController ,test} = require('../controllers/userController');
+// Route to save user email and log activities
+router.route('/email').post(emailController);
 
+// Route to get user email from project ID
+router.route('/email-from-project/:projectId').get(getUserEmailFromProjectId);
 
+// Route to get projects by userEmail
+router.route('/projects/:userEmail').get(getProjectsByUserEmail);
 
-router.route('/email').post(emailController).get(test);
+// Route to list projects of a user by email
+router.route('/projects-list/:email').get(listProjectsByUserEmail);
 
 module.exports = router;

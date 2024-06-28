@@ -4,24 +4,29 @@ const projectSchema = new mongoose.Schema({
   userEmail: {
     type: String,
     required: true,
-    ref: 'User'
+    ref: 'User',
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
+  status: {
+    type: String,
+    enum: ['done', 'in-progress', 'active', 'deleted'],
+    default: 'in-progress',
+  },
 });
 
 module.exports = mongoose.model('Project', projectSchema);

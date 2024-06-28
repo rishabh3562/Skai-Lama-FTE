@@ -43,9 +43,11 @@ const BrowserRouter = createBrowserRouter([
 ]);
 
 const EmailModalBLockedContent = () => {
-  const { email, loading } = useEmail();
-console.log("email in app.jsx: ",email);
-console.log("loading in app.jsx: ",loading);
+  const { email, loading ,userId,sessionId} = useEmail();
+// console.log("email in app.jsx: ",email);
+// console.log("loading in app.jsx: ",loading);
+// console.log("userId in app.jsx: ",userId);
+// console.log("sessionId in app.jsx: ",sessionId);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -53,7 +55,7 @@ console.log("loading in app.jsx: ",loading);
 
   return (
     <>
-      {!email && <EmailModal /> }
+    
       <RouterProvider router={BrowserRouter} />
       
     </>

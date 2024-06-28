@@ -4,32 +4,23 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
-  },
-  username: {
-    type: String
-   
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
+    unique: true,
   },
   activities: [
     {
       sessionId: {
         type: String,
-        required: true
+        required: true,
       },
       metadata: {
-        type: mongoose.Schema.Types.Mixed
+        type: Object,
       },
       timestamp: {
         type: Date,
-        default: Date.now
-      }
-    }
-  ]
+        default: Date.now,
+      },
+    },
+  ],
 });
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);
