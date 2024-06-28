@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { EmailProvider } from "./context/EmailContext.jsx";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export const queryClient = new QueryClient();
 
@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
     <EmailProvider>
       <App />
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </EmailProvider>
   </QueryClientProvider>
   </React.StrictMode>

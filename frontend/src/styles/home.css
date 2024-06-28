@@ -42,7 +42,6 @@
 .home-text {
   text-align: center;
   font: roboto;
-  /* text-justify:inter-word; */
   text-wrap: wrap;
   color: var(--text-gray);
   font-weight: 500;
@@ -60,8 +59,46 @@
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 2.5rem;
   margin-top: 20px;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.pagination button {
+  margin: 0 5px;
+  padding: 10px 20px;
+  border-radius: .5rem;
+  background-color: var(--violet-main);
+  color: white;
+  border: .11rem solid white;
+  cursor: pointer;
+  font-weight:500 ;
+  transition: background-color 0.3s;
+  opacity: 0.9;
+}
+
+.pagination button:disabled {
+  background-color: var(--gray);
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  opacity: 0.9;
+  background-color: var(--violet-light);
+  color: var(--violet-main);
+  border: .11rem solid var(--violet-main);
+}
+
+.pagination .active {
+  opacity: 1;
+}
+
+.home-header-project{
+  display: flex;
+  justify-content: space-between;
+}
