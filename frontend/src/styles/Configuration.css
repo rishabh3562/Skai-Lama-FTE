@@ -1,3 +1,4 @@
+@import './global.css';
 .configuration-container {
     display: flex;
     height: 100vh;

@@ -28,7 +28,7 @@ const Configuration = () => {
 
   return (
     <div>
-      <main>
+      <main className="section-wrapper">
         <BreadCrumbBar />
         <div className="configuration-header">
           <h1>Configuration</h1>

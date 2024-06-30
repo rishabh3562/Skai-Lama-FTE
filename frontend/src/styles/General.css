@@ -1,0 +1,30 @@
+
+.general-form-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .general-form-group-gen {
+    margin-bottom: 2rem;
+  }
+  
+  .general-form-group-gen label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #3C3C3C;
+  }
+  
+  .general-form-group-gen input {
+    width: 700px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: .5rem;
+
+  }
+  .general-form-group-gen p{
+    font-weight: 400;
+    color: #646464;
+  }
