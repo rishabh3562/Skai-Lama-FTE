@@ -87,15 +87,18 @@ exports.createProject = catchAsyncErrors(async (req, res) => {
   }
 });
 exports.updateUserProfilePic = catchAsyncErrors(async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.params; // Assuming userId here is actually the user's email
   const { profilePicUrl } = req.body;
 
   try {
-    const user = await User.find({ email: userId });//using email as unique identifier
+    // Find the user by their email (assuming userId is the email)
+    const user = await User.findOne({ email: userId });
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
+    // Update the user's profile picture URL
     user.profilePic = profilePicUrl;
     await user.save();
 
