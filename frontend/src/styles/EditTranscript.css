@@ -13,7 +13,7 @@
 
 .edit-transcript-section {
   padding: 20px;
-  background-color: #f9f9f9;
+
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -22,12 +22,16 @@
   margin-bottom: 20px;
 }
 
+.edit-transcript-controls {
+}
+
 .editor-container {
   position: relative;
 }
 
 .edit-transcript-textarea {
   height: 65vh;
+ 
   border: 2px solid var(--violet-main);
   border-radius: 1rem;
   resize: none;
@@ -35,23 +39,39 @@
   padding: 3rem 1rem;
   white-space: pre-wrap; /* Preserve whitespace and newlines */
   outline: none;
-  
+  width: -webkit-fill-available;
 }
 
-
-
+.edit-transcript-textarea-active {
+  height: 65vh;
+  border: 2px solid var(--violet-main);
+  border-radius: 1rem;
+  resize: none;
+  overflow: auto;
+  padding: 3rem 4rem;
+  white-space: pre-wrap; /* Preserve whitespace and newlines */
+  outline: none;
+width: -webkit-fill-available;
+}
+.edit-transcript-controls-twobtns-active {
+  /* position: absolute;
+  top: 10px;
+  right: 10px; */
+  /* border: 2px solid red; */
+  margin-right: 10px;
+}
 .header-section-active {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-}
-
-.edit-transcript-controls {
-  position: relative;
+  /* border: 2px solid red; */
 }
 
 .edit-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
   background-color: #3c3c3c;
   color: white;
   padding: 0.25rem 2rem 0.25rem 1.2rem;
@@ -59,23 +79,25 @@
   border-radius: 1.4rem;
   font-size: 1.1rem;
   font-weight: 600;
+  margin-right: 10px;
   cursor: pointer;
 }
-
 .edit-button-wrapper {
   display: flex;
   align-items: center;
   gap: 0.2rem;
 }
-
+.edit-icon-mui {
+  height: 1rem;
+}
 .search-icon {
   position: absolute;
   top: 10px;
   right: 10px;
   font-size: 18px;
   background-color: #f3e8ff;
-  padding: 8px;
-  border-radius: 50%;
+  padding: 3px;
+  border-radius: 55%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,6 +105,19 @@
   border: 2px solid var(--violet-main);
 }
 
+.search-field {
+  transition: all 0.3s ease-in-out;
+  max-width: 0;
+  overflow: hidden;
+}
+
+.search-field.open {
+  max-width: 200px;
+}
+
+.mark {
+  background-color: yellow;
+}
 .discard-button {
   background-color: white;
   color: #ff274c;
@@ -94,7 +129,6 @@
   margin-right: 10px;
   cursor: pointer;
 }
-
 .transcript-save-button {
   background-color: #211935;
   color: #f8f8f8;

@@ -14,7 +14,7 @@ const EditTranscript = () => {
   const projectId = project ? project._id : "";
 
   const [isEditMode, setIsEditMode] = useState(false);
-  const [description, setDescription] = useState(project?.description || ""); // Initial description from project
+  const [description, setDescription] = useState(project?.description || "");
   const [tempDescription, setTempDescription] = useState(description);
 
   const CachedBreadcrumbs = useCallback(() => {
@@ -32,13 +32,12 @@ const EditTranscript = () => {
   }, []);
 
   useEffect(() => {
-    CachedBreadcrumbs(); // Initialize breadcrumbs when component mounts
+    CachedBreadcrumbs();
   }, [CachedBreadcrumbs]);
 
   useEffect(() => {
-    // Cleanup function to reset breadcrumbs when component unmounts
     return () => {
-      updateBreadcrumbs([]); // Reset breadcrumbs when component unmounts
+      updateBreadcrumbs([]);
     };
   }, []);
 
@@ -57,7 +56,7 @@ const EditTranscript = () => {
   };
 
   const handleDescriptionChange = (e) => {
-    setTempDescription(e.target.innerText);
+    setTempDescription(e.target.value);
   };
 
   return (
@@ -72,31 +71,31 @@ const EditTranscript = () => {
             <div className="edit-transcript-controls-twobtns-active">
               {isEditMode && (
                 <>
-                  <button
-                    onClick={handleDiscardClick}
-                    className="discard-button"
-                  >
+                  <button onClick={handleDiscardClick} className="discard-button">
                     Discard
                   </button>
-                  <button
-                    onClick={handleSaveClick}
-                    className="transcript-save-button"
-                  >
+                  <button onClick={handleSaveClick} className="transcript-save-button">
                     Save & Exit
                   </button>
                 </>
               )}
             </div>
+            
           </div>
 
           <div className="editor-container">
-            <div
-              className="edit-transcript-textarea"
-              contentEditable={isEditMode}
-              onInput={handleDescriptionChange}
-              dangerouslySetInnerHTML={{ __html: tempDescription }}
-              // Ensure left-to-right direction
-            ></div>
+            {isEditMode ? (
+              <textarea
+                className="edit-transcript-textarea-active"
+                value={tempDescription}
+                onChange={handleDescriptionChange}
+              />
+            ) : (
+              <div
+                className="edit-transcript-textarea"
+                dangerouslySetInnerHTML={{ __html: tempDescription }}
+              />
+            )}
             <div className="edit-transcript-controls">
               {!isEditMode && (
                 <div onClick={handleEditClick} className="edit-button">
@@ -107,12 +106,12 @@ const EditTranscript = () => {
                 </div>
               )}
               <div className="search-icon">
-                {/* <Search /> */}
                 <img src={SearchPath} alt="" />
               </div>
             </div>
           </div>
         </section>
+        
       </div>
     </div>
   );

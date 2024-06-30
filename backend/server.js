@@ -31,6 +31,7 @@ app.use(cors({
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/projects', require('./routes/projectRoutes'));
+app.use('/api/transcripts', require('./routes/transcriptRoutes'));
 // Default route
 app.get('/', (req, res) => {
     res.send('API is running...');

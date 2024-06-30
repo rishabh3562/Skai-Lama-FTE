@@ -6,6 +6,10 @@ const transcriptSchema = new mongoose.Schema({
     ref: 'Project',
     required: true
   },
+  name:{
+    type: String,
+
+  },
   description: {
     type: String,
     required: true
@@ -13,6 +17,11 @@ const transcriptSchema = new mongoose.Schema({
   timestamp: {
     type: Date,
     default: Date.now
+  },
+  status: {
+    type: String,
+    enum: ['done', 'in-progress', 'failed'],
+    default: 'done',
   },
   previousDescriptions: [
     {

@@ -68,3 +68,21 @@ exports.listProjectsByUserEmail = catchAsyncErrors(async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
+exports.createProject = catchAsyncErrors(async (req, res) => {
+  const { userEmail, name, description } = req.body;
+
+  try {
+    const newProject = new Project({
+      userEmail,
+      name,
+      description,
+    });
+
+    const savedProject = await newProject.save();
+    res.status(201).json(savedProject);
+  } catch (error) {
+    console.error('Error creating project:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});

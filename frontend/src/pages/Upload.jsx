@@ -91,7 +91,7 @@ const Upload = () => {
           <h1 className="section-header">{project.name}</h1>
           <div className="upload-card-grid">
             {uploadData.map((item) => (
-              <UploadCard key={item.id} name={item.name} logo={item.logoName} />
+              <UploadCard key={item.id} name={item.name} logo={item.logoName} projectId={item._id}/>
             ))}
           </div>
         </section>

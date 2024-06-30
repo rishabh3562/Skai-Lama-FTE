@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   email: "/api/users/email",
   projects: '/api/projects',
   projectList:`/api/users/projects-list`,
+  transcript: '/api/transcripts',
 };
 
 // Routes
