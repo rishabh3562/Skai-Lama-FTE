@@ -1,21 +1,33 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
+// Separate environment variables
+const awsRegion = import.meta.env.VITE_REACT_AWS_REGION;
+const awsAccessKeyId = import.meta.env.VITE_REACT_AWS_ACCESS_KEY_ID;
+const awsSecretAccessKey = import.meta.env.VITE_REACT_AWS_SECRET_ACCESS_KEY;
+const s3BucketName = import.meta.env.VITE_REACT_S3_BUCKET_NAME;
+
+// Log environment variables for debugging
+console.log("AWS Region:", awsRegion);
+console.log("AWS Access Key ID:", awsAccessKeyId);
+console.log("S3 Bucket Name:", s3BucketName);
+
+// Create S3 client instance
 const s3Client = new S3Client({
-  region: import.meta.env.REACT_APP_AWS_REGION,
+  region: awsRegion,
   credentials: {
-    accessKeyId: import.meta.env.REACT_APP_AWS_ACCESS_KEY_ID,
-    secretAccessKey: import.meta.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    accessKeyId: awsAccessKeyId,
+    secretAccessKey: awsSecretAccessKey,
   },
 });
 
 const uploadImageToS3 = async (file) => {
   const params = {
-    Bucket: import.meta.env.REACT_APP_S3_BUCKET_NAME,
+    Bucket: s3BucketName,
     Key: `${Date.now()}_${file.name}`,
     Body: file,
     ContentType: file.type,
-    ACL: "public-read",
+   
   };
 
   const command = new PutObjectCommand(params);

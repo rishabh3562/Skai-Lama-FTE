@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  profilePic: {
+    type: String,
+    default: '', // Default empty string for profilePic URL
+  },
   activities: [
     {
       sessionId: {
