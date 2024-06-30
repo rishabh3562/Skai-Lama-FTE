@@ -2,8 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { useBreadcrumbs } from "../context/BreadCrumbContext";
 import BreadCrumbBar from "../components/BreadCrumbBar";
-import { SearchOffOutlined } from "@mui/icons-material";
-import "../styles/EditTranscipt.css";
+import { Search } from "@mui/icons-material";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import "../styles/EditTranscript.css";
+import SearchPath from "../assets/Transcript_Search.svg";
 
 const EditTranscript = () => {
   const { updateBreadcrumbs } = useBreadcrumbs();
@@ -31,7 +33,7 @@ const EditTranscript = () => {
 
   useEffect(() => {
     CachedBreadcrumbs(); // Initialize breadcrumbs when component mounts
-  }, []);
+  }, [CachedBreadcrumbs]);
 
   useEffect(() => {
     // Cleanup function to reset breadcrumbs when component unmounts
@@ -55,7 +57,7 @@ const EditTranscript = () => {
   };
 
   const handleDescriptionChange = (e) => {
-    setTempDescription(e.target.value);
+    setTempDescription(e.target.innerText);
   };
 
   return (
@@ -65,32 +67,51 @@ const EditTranscript = () => {
           <BreadCrumbBar />
         </div>
         <section className="edit-transcript-section">
-          <h1 className="section-header">Edit Transcript</h1>
-          <div className="edit-transcript-controls">
-            <button onClick={handleEditClick} disabled={isEditMode}>
-              Edit
-            </button>
-            {isEditMode && (
-              <>
-                <button onClick={handleDiscardClick}>Discard</button>
-                <button onClick={handleSaveClick}>Save & Exit</button>
-              </>
-            )}
+          <div className="header-section-active">
+            <h1 className="section-header">Edit Transcript</h1>
+            <div className="edit-transcript-controls-twobtns-active">
+              {isEditMode && (
+                <>
+                  <button
+                    onClick={handleDiscardClick}
+                    className="discard-button"
+                  >
+                    Discard
+                  </button>
+                  <button
+                    onClick={handleSaveClick}
+                    className="transcript-save-button"
+                  >
+                    Save & Exit
+                  </button>
+                </>
+              )}
+            </div>
           </div>
-          {isEditMode ? (
-            <div className="editor-container">
-              <textarea
-                value={tempDescription}
-                onChange={handleDescriptionChange}
-                className="edit-transcript-textarea"
-              />
+
+          <div className="editor-container">
+            <div
+              className="edit-transcript-textarea"
+              contentEditable={isEditMode}
+              onInput={handleDescriptionChange}
+              dangerouslySetInnerHTML={{ __html: tempDescription }}
+              // Ensure left-to-right direction
+            ></div>
+            <div className="edit-transcript-controls">
+              {!isEditMode && (
+                <div onClick={handleEditClick} className="edit-button">
+                  <div className="edit-button-wrapper">
+                    <EditTwoToneIcon />
+                    Edit
+                  </div>
+                </div>
+              )}
               <div className="search-icon">
-                <SearchOffOutlined />
+                {/* <Search /> */}
+                <img src={SearchPath} alt="" />
               </div>
             </div>
-          ) : (
-            <p className="transcript-description">{description}</p>
-          )}
+          </div>
         </section>
       </div>
     </div>
