@@ -15,6 +15,7 @@
   --violet-light: #f3e8ff;
   --text-gray: #838383;
   --text-light-gray: #999999;
+  --text-sidebar:#49454F;
   --text-gray-placeholder: #d3cece;
   --btn-black-home :#211935;
   --btn-text-home:#F8F8F8;
@@ -22,7 +23,9 @@
 ;
 }
 
-
+.debug{
+  border: 2px solid red;
+}
 .container-90{
     width: 90%;
     margin: auto;
@@ -91,4 +94,15 @@
   .btn-text-home a {
     color: var(--btn-text-home);
     text-decoration: none;
+  }
+  .section-header{
+    color: var(--violet-main);
+    font-size: 2.2rem;
+
+  }
+
+  .section-wrapper {
+    min-height: 100vh;
+    height: 100%;
+    padding: 2rem 3rem;
   }

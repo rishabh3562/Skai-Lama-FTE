@@ -1,72 +1,74 @@
-import React, { Suspense, lazy } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { EmailProvider, useEmail } from "./context/EmailContext";
-import EmailModal from "./components/EmailModal";
-import Navbar from "./components/Navbar";
+import React, { Suspense, lazy } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { EmailProvider, useEmail } from './context/EmailContext';
 
-const Home = lazy(() => import("./pages/Home"));
-const Project = lazy(() => import("./pages/Project"));
-const EditTranscript = lazy(() => import("./pages/EditTranscript"));
-const Configuration = lazy(() => import("./pages/Configuration"));
-const AccountSettings = lazy(() => import("./pages/AccountSettings"));
-const Error404 = lazy(() => import("./pages/Error404"));
+import EmailModal from './components/EmailModal';
+import Navbar from './components/Navbar';
+import SidebarLayout from './components/SidebarLayout';
 
-const BrowserRouter = createBrowserRouter([
+const Home = lazy(() => import('./pages/Home'));
+const Project = lazy(() => import('./pages/Project'));
+const EditTranscript = lazy(() => import('./pages/EditTranscript'));
+const Configuration = lazy(() => import('./pages/Configuration'));
+const AccountSettings = lazy((a) => import('./pages/AccountSettings'));
+const Error404 = lazy(() => import('./pages/Error404'));
+const Upload = lazy(() => import('./pages/Upload'));
+
+const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Home />,
   },
   {
-    path: "/home",
+    path: '/home',
     element: <Home />,
   },
   {
-    path: "/project",
-    element: <Project />,
+    element: <SidebarLayout />,
+    children: [
+      {
+        path: '/project/:slug', // Use `:slug` instead of `:projectId`
+        element: <Project />,
+      },
+      {
+        path: '/project/:slug/edit-transcript',
+        element: <EditTranscript />,
+      },
+      {
+        path: '/configuration',
+        element: <Configuration />,
+      },
+      {
+        path: '/account-settings',
+        element: <AccountSettings />,
+      },
+      {
+        path: '/project/:slug/upload', // Use `:slug` instead of `:projectId`
+        element: <Upload />,
+      },
+    ],
   },
   {
-    path: "/edit-transcript",
-    element: <EditTranscript />,
-  },
-  {
-    path: "/configuration",
-    element: <Configuration />,
-  },
-  {
-    path: "/account-settings",
-    element: <AccountSettings />,
-  },
-  {
-    path: "*",
+    path: '*',
     element: <Error404 />,
   },
 ]);
 
-const EmailModalBLockedContent = () => {
-  const { email, loading ,userId,sessionId} = useEmail();
-// console.log("email in app.jsx: ",email);
-// console.log("loading in app.jsx: ",loading);
-// console.log("userId in app.jsx: ",userId);
-// console.log("sessionId in app.jsx: ",sessionId);
+const EmailModalBlockedContent = () => {
+  const { email, loading, userId, sessionId } = useEmail();
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <>
-    
-      <RouterProvider router={BrowserRouter} />
-      
-    </>
-  );
+  return <RouterProvider router={router} />;
 };
 
 function App() {
   return (
     <EmailProvider>
       <Suspense fallback={<div>Loading...</div>}>
-        <EmailModalBLockedContent />
+        <EmailModalBlockedContent />
       </Suspense>
     </EmailProvider>
   );

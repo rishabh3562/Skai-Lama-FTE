@@ -1,0 +1,42 @@
+.BreadCrumb-path {
+    display: flex;
+    
+    /* padding: 10px 20px; */
+    
+    
+  }
+  .BreadCrumb-path .BreadCrumb-homeIcon a{
+    text-decoration: none;
+  }
+  #BreadCrumb-homeIcon {
+    margin-right: 5px;
+    color: #673ab7;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+  /* .BreadCrumb-start{
+    padding: 2rem 0;
+  } */
+  .BreadCrumb-path span {
+    cursor: pointer;
+
+  }
+
+  
+  .BreadCrumb-path span.active {
+    color: #673ab7;
+    font-weight: bold;
+  }
+  
+  .BreadCrumb-path span:not(.active) {
+    color: rgb(167, 164, 164);
+  }
+  
+  .BreadCrumb-path span:not(:last-child) {
+  
+    margin-left: 2px;
+  }
+  

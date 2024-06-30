@@ -1,0 +1,25 @@
+.BreadCrumbBar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  
+  }
+  
+  .BreadCrumbBar-icons {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .BreadCrumbBar-lang {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  
+  .BreadCrumbBar-flag {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+  }
+  

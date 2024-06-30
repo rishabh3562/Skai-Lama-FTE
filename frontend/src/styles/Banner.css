@@ -1,0 +1,26 @@
+@import "global.css";
+.banner-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.3rem 2rem;
+  background-color: #7e22ce;
+  border-radius: 1rem;
+  border: none;
+}
+
+.banner-text {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.banner-btn-text {
+  color: #3c3c3c;
+  background-color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+}

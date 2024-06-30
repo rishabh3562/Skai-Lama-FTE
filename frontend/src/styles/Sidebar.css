@@ -1,0 +1,144 @@
+@import "./global.css";
+.sidebar {
+  height: 100%;
+  overflow-y: auto;
+  background-color: var(--violet-light);
+  position: sticky;
+  min-width: fit-content;
+  min-height: 100vh;
+  flex: 1;
+}
+.sidebar-outlet-right {
+  flex: 8;
+  min-height: 100vh;
+  height: 100%;
+
+}
+.sidebarWrapper {
+  padding: 0px 5px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sidebar-top {
+}
+.sidebar-hr-end {
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+.sidebar-end {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.sidebar-logo-box {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: 12px;
+}
+.sidebar-settings-box {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 12px;
+  cursor: pointer;
+}
+.sidebar-settings-box p {
+}
+.sidebar-hr {
+  opacity: 0.6;
+  width: 90%;
+  margin: 1rem auto 0 auto;
+}
+.active-sidebarListItem {
+  background-color: var(--violet-main);
+  width: 100%;
+  color: white;
+}
+.active-sidebarListItem .serial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--btn-black-home);
+  height: 27px;
+  width: 27px;
+  font-size: 15px; /* Adjust font size as needed */
+  margin-right: 12px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(179, 179, 179);
+}
+
+.sidebarList {
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.sidebarListItem {
+  display: flex;
+  align-items: center;
+
+  transition: 0.3s ease-in-out;
+}
+.sidebarListItem a {
+  display: flex;
+  padding: 0.35rem 0.25rem 0.35rem 0.5rem;
+
+  text-decoration: none;
+  border-radius: 2rem;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+.sidebarListItemText {
+  font-weight: 500;
+  /* font-size: 1.1rem; */
+  text-align: left;
+  color: var(--text-sidebar);
+}
+.active-sidebarListItem .sidebarListItemText {
+  color: white;
+}
+.sidebarIcon {
+  margin-right: 15px;
+}
+
+.sidebarButton {
+  width: 150px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+p {
+  font-weight: 500;
+}
+.serial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 0.3rem;
+  background-color: rgb(202, 187, 210);
+  height: 27px;
+  width: 27px;
+  font-size: 15px; /* Adjust font size as needed */
+  margin-right: 12px;
+  color: #3c3c3c;
+}
+.active-sidebarListItem .serial {
+  color: white;
+}
+.sidebarListItem:hover {
+  opacity: 0.8;
+}

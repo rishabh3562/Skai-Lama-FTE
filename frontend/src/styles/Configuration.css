@@ -1,0 +1,81 @@
+.configuration-container {
+    display: flex;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  
+
+  .configuration-header {
+    margin-bottom: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    border: none;
+    background-color: #f5f5f5;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    background-color: #673ab7;
+    color: white;
+  }
+  
+  .form-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group-gen {
+    margin-bottom: 20px;
+  }
+  
+  .form-group-gen label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group-gen input {
+    width: 700px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .icons{
+    display: flex;
+    gap: 20px;
+  }
+  .flag{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    
+  }
+  .lang{
+    display: flex;
+    gap: 7px;
+  }
+
+#sample, #widget {
+    cursor: pointer;
+  }
+  
+  #sample.active, #widget.active {
+      color: #673ab7;
+      font-weight: bold;
+    }
+    
+    #sample:not(.active), #widget:not(.active) {
+        color: rgb(167, 164, 164);
+    }
+
+

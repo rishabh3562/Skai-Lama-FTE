@@ -1,0 +1,65 @@
+.display-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .form-section {
+    padding: 20px ;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    width: 370px;
+  }
+  label {
+    font-size: 16px;
+    color: #4e4e4e;
+    margin-bottom: 8px;
+    font-weight: bold; /* Make the label bold */
+  }
+  
+  input[type="color"] {
+    width: 370px; /* Set a fixed width */
+    height: 40px; /* Set a fixed height */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 4px; /* Add border radius */
+    padding: 0; /* Remove padding */
+    cursor: pointer; /* Change cursor to pointer */
+  }
+  
+  
+  input[type="number"],
+  select,
+  button.upload-button {
+    width: 96%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  
+  button.upload-button {
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  small {
+    display: block;
+    font-size: 12px;
+    color: #7d7d7d;
+  }
+  
+  h2 {
+    font-size: 18px;
+    color: #673ab7;
+    margin-bottom: 10px;
+  }

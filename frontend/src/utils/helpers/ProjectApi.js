@@ -36,5 +36,13 @@ export const createProject = async (project) => {
     }
 }
 
-
+export const getSlug=async (projectId)=>{
+    try {
+        const response = await axios.get(`${BASE_URL}${API_ENDPOINTS.projects}/${projectId}/slug`);
+        return response.data;
+    } catch (error) {
+        // console.error("Error fetching project", error);
+        return error;
+    }
+};
 
