@@ -2,19 +2,22 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { useBreadcrumbs } from "../context/BreadCrumbContext";
 import BreadCrumbBar from "../components/BreadCrumbBar";
-import { Search } from "@mui/icons-material";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import axios from "axios";
 import "../styles/EditTranscript.css";
 import SearchPath from "../assets/Transcript_Search.svg";
+import { API_ENDPOINTS, BASE_URL } from "../utils/constants";
 
 const EditTranscript = () => {
   const { updateBreadcrumbs } = useBreadcrumbs();
   const location = useLocation();
-  const { project, slug } = location.state || {};
+  const { project, slug, upload } = location.state || {};
   const projectId = project ? project._id : "";
-
+const transcriptId = upload ? upload._id : "";
+console.log("transcriptId", transcriptId);
+console.log("projectId", projectId);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [description, setDescription] = useState(project?.description || "");
+  const [description, setDescription] = useState(upload ? upload.description : "");
   const [tempDescription, setTempDescription] = useState(description);
 
   const CachedBreadcrumbs = useCallback(() => {
@@ -33,7 +36,7 @@ const EditTranscript = () => {
 
   useEffect(() => {
     CachedBreadcrumbs();
-  }, [CachedBreadcrumbs]);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -50,9 +53,22 @@ const EditTranscript = () => {
     setIsEditMode(false);
   };
 
-  const handleSaveClick = () => {
-    setDescription(tempDescription);
-    setIsEditMode(false);
+  const handleSaveClick = async () => {
+    try {
+      // Make API call to update description
+      const putUrl = `${BASE_URL}${API_ENDPOINTS.transcript}/${transcriptId}`;
+      await axios.put(putUrl, { description: tempDescription,
+        transcriptId: transcriptId,
+        projectId: projectId
+       });
+
+      // Update local state with new description
+      setDescription(tempDescription);
+      setIsEditMode(false);
+    } catch (error) {
+      console.error("Error updating description:", error);
+      // Handle error (show message, etc.)
+    }
   };
 
   const handleDescriptionChange = (e) => {
@@ -80,7 +96,6 @@ const EditTranscript = () => {
                 </>
               )}
             </div>
-            
           </div>
 
           <div className="editor-container">
@@ -111,7 +126,6 @@ const EditTranscript = () => {
             </div>
           </div>
         </section>
-        
       </div>
     </div>
   );

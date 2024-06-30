@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useBreadcrumbs } from "../context/BreadCrumbContext";
-import axios from "axios"; // Import axios for API requests
+import axios from "axios";
 import "../styles/Upload.css";
 import UploadCard from "../components/UploadCard";
 import BreadCrumbBar from "../components/BreadCrumbBar";
 import Banner from "../components/Banner";
 import { API_ENDPOINTS, BASE_URL } from "../utils/constants";
-import formatDate from '../utils/dateFormatter1'
+import formatDate from '../utils/dateFormatter1';
 
 const Upload = () => {
   const location = useLocation();
@@ -36,7 +36,7 @@ const Upload = () => {
     // Fetch upload data from API
     const fetchUploadData = async () => {
       try {
-        const fetchUrl=`${BASE_URL}${API_ENDPOINTS.transcript}/${projectId}`;
+        const fetchUrl = `${BASE_URL}${API_ENDPOINTS.transcript}/${projectId}`;
         const response = await axios.get(fetchUrl);
         setUploadData(response.data);
       } catch (error) {
@@ -57,8 +57,8 @@ const Upload = () => {
   // Function to handle delete action
   const handleDelete = async (id) => {
     try {
-      // Make DELETE request to backend API
-      await axios.delete(`/api/transcripts/${id}`);
+      const deleteUrl = `${BASE_URL}${API_ENDPOINTS.transcript}/${id}`;
+      await axios.delete(deleteUrl);
       console.log("Deleted item with ID:", id);
 
       // Update state to reflect deletion
@@ -70,19 +70,16 @@ const Upload = () => {
   };
 
   const handleEdit = (id) => {
-    const upload = {
-      _id: id,
-      name: "Upload Spotify Podcast",
-      url: "this is the project description/url",
-      dateTime: "2024-06-30 11:45 AM",
-      status: "Processing",
-      id: "2",
-      logoName: "spotify",
-    };
-    navigate(`/project/${slug.slug}/edit-transcript/`, {
-      state: { project, slug, upload },
-    });
+    // Find the correct item to edit based on ID from uploadData
+    const itemToEdit = uploadData.find(item => item._id === id);
+    if (itemToEdit) {
+      navigate(`/project/${slug.slug}/edit-transcript/`, {
+        state: { project, slug, upload: itemToEdit }, // Pass the item to edit as upload state
+      });
+    }
   };
+
+  // Example card data (you can fetch this dynamically as you did before)
   const cardData = [
     {
       _id: "667f1c7b0c22ef560aa47efe",
@@ -110,6 +107,7 @@ const Upload = () => {
     },
     // Add more sample data as needed
   ];
+
   return (
     <div className="section-wrapper">
       <div className="upload-breacrumbar-handler">
@@ -125,6 +123,7 @@ const Upload = () => {
               logo={item.logoName}
               projectId={projectId}
               onDelete={handleDelete}
+              onEdit={() => handleEdit(item._id)} // Pass edit handler to card
             />
           ))}
         </div>
