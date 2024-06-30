@@ -7,7 +7,7 @@ import RssImage from "../assets/Rss.svg";
 import NotFoundImage from "../assets/NotFoundImage.svg";
 import "../styles/UploadCard.css";
 
-const UploadCard = ({ name, logo, projectId }) => {
+const UploadCard = ({ name, logo, projectId}) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   // Map logos to their respective image paths
