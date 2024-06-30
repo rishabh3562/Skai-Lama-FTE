@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import '../styles/Display.css';
 import Toggle from './Toggle';
 import uploadImageToS3 from '../utils/aws/awsConfig';
-
+import { API_ENDPOINTS, BASE_URL } from '../utils/constants';
+import {useEmail}from '../context/EmailContext'
 const Display = () => {
   const [primaryColor, setPrimaryColor] = useState("#7BD658");
   const [fontColor, setFontColor] = useState("#3C3C3C");
@@ -14,7 +15,8 @@ const Display = () => {
   const [positionOnScreen, setPositionOnScreen] = useState('Bottom Right');
   const [distanceFromBottom, setDistanceFromBottom] = useState(20);
   const [horizontalDistance, setHorizontalDistance] = useState(20);
-
+const {email}=useEmail();
+console.log(email)
   const handlePrimaryColorChange = (e) => {
     setPrimaryColor(e.target.value);
   };
@@ -44,6 +46,10 @@ const Display = () => {
       try {
         const url = await uploadImageToS3(file);
         console.log('File uploaded successfully:', url);
+
+        // Save URL to database using API call (PUT/PATCH request)
+        const response = await axios.put(`${BASE_URL}${API_ENDPOINTS.user}/${email}/profilePic`, { profilePicUrl: url });
+console.log(response.data)
       } catch (error) {
         console.error('Error uploading file:', error);
       }
