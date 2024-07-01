@@ -34,24 +34,24 @@ const Configuration = () => {
           <h1>Configuration</h1>
         </div>
         <div className="tabs">
-          <button
+          <div
             className={`tab ${activeTab === "general" ? "active" : ""}`}
             onClick={() => handleActiveTabClick("general")}
           >
             General
-          </button>
-          <button
+          </div>
+          <div
             className={`tab ${activeTab === "display" ? "active" : ""}`}
             onClick={() => handleActiveTabClick("display")}
           >
             Display
-          </button>
-          <button
+          </div>
+          <div
             className={`tab ${activeTab === "advanced" ? "active" : ""}`}
             onClick={() => handleActiveTabClick("advanced")}
           >
             Advanced
-          </button>
+          </div>
         </div>
         {activeTab === "general" && <General />}
         {activeTab === "display" && <Display />}

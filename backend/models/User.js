@@ -8,7 +8,11 @@ const userSchema = new mongoose.Schema({
   },
   profilePic: {
     type: String,
-    default: '', // Default empty string for profilePic URL
+    default: '',
+  },
+  username: {
+    type: String,
+    default: '',
   },
   activities: [
     {

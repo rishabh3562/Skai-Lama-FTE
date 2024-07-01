@@ -46,7 +46,8 @@ console.log(email)
     if (file) {
       try {
         const url = await uploadImageToS3(file);
-        console.log('File uploaded successfully:', url);
+        console.log('File uploaded successfully:', url); //gives the url that is to be stored in db
+        
 
         // Save URL to database using API call (PUT/PATCH request)
         const response = await axios.put(`${BASE_URL}${API_ENDPOINTS.user}/${email}/profile-pic`, { profilePicUrl: url });
