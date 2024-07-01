@@ -5,6 +5,7 @@ import CloseIcon from '../assets/closeX.svg';
 import { BASE_URL, API_ENDPOINTS } from '../utils/constants';
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from "../main"; // Import the existing queryClient
+import { toast } from "react-toastify";
 
 const UploadModal = ({ isOpen, handleClose, projectId, IconImageFromCard }) => {
   const [name, setName] = useState("");
@@ -15,11 +16,34 @@ const UploadModal = ({ isOpen, handleClose, projectId, IconImageFromCard }) => {
       axios.post(`${BASE_URL}${API_ENDPOINTS.transcript}`, formData),
     onSuccess: () => {
       queryClient.invalidateQueries(["uploads", projectId]);
+      toast.success("Transcript saved successfully",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        style:{
+          cursor:"grab"
+        },
+        progress: undefined,
+        theme: "light",
+      });
       handleClose(); // Close modal after successful save
     },
     onError: (error) => {
       console.error("Error saving transcript:", error);
       // Handle error (show message, etc.)
+      toast.error("Some Error occurred",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     },
   });
 

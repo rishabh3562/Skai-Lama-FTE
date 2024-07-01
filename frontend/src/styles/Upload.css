@@ -19,14 +19,22 @@
   margin-top: 30px;
 }
 
-.upload-table {
+
+.upload-table  {
   width: 100%;
 border-radius: 20px;
 box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
 ;
 }
+.upload-table tr:last-child td {
+/* background-color: aqua; */
 
+
+
+border-bottom: none;
+
+}
 .upload-table th,
 .upload-table td {
   padding: 1.5rem;
@@ -37,9 +45,7 @@ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 font-size: 1.1rem;
 }
 
-.upload-table th {
- 
-}
+
 .upload-btn-wrapper{
     display: flex;
 
