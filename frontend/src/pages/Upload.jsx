@@ -8,6 +8,13 @@ import BreadCrumbBar from "../components/BreadCrumbBar";
 import Banner from "../components/Banner";
 import { API_ENDPOINTS, BASE_URL } from "../utils/constants";
 import formatDate from '../utils/dateFormatter1';
+import {
+  useQuery,
+  useMutation,
+  
+  useQueryClient,
+} from "@tanstack/react-query";
+import {queryClient} from '../main'
 
 const Upload = () => {
   const location = useLocation();
@@ -15,8 +22,28 @@ const Upload = () => {
   const { updateBreadcrumbs } = useBreadcrumbs();
   const { project, slug } = location.state || {};
   const projectId = project ? project._id : "";
-  const [uploadData, setUploadData] = useState([]);
+  // const [uploadData, setUploadData] = useState([]);
+  const fetchUploadData = async () => {
+    try {
+      const fetchUrl = `${BASE_URL}${API_ENDPOINTS.transcript}/${projectId}`;
+      const response = await axios.get(fetchUrl);
+      setUploadData(response.data);
+    } catch (error) {
+      console.error('Error fetching upload data:', error);
+      // Handle error (show message, etc.)
+    }
+  };
 
+  const {data:uploadData,isLoading:isUploadDataLoading} = useQuery({
+    queryKey: ["uploads", projectId],
+    queryFn: async () => {
+      const response = await axios.get(
+        `${BASE_URL}${API_ENDPOINTS.transcript}/${projectId}`
+      );
+      return response.data;
+    },
+    
+  });
   useEffect(() => {
     // Update breadcrumbs when projectId or slug changes
     if (projectId) {
@@ -32,23 +59,15 @@ const Upload = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // Fetch upload data from API
-    const fetchUploadData = async () => {
-      try {
-        const fetchUrl = `${BASE_URL}${API_ENDPOINTS.transcript}/${projectId}`;
-        const response = await axios.get(fetchUrl);
-        setUploadData(response.data);
-      } catch (error) {
-        console.error('Error fetching upload data:', error);
-        // Handle error (show message, etc.)
-      }
-    };
+  // / Mutation to delete an upload
+  const deleteMutation = useMutation({
+    mutationFn: (id) =>
+      axios.delete(`${BASE_URL}${API_ENDPOINTS.transcript}/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["uploads", projectId]);
+    },
+  });
 
-    if (projectId) {
-      fetchUploadData();
-    }
-  }, []);
 
   if (!project || !slug) {
     return <div>Loading...</div>;
@@ -57,12 +76,10 @@ const Upload = () => {
   // Function to handle delete action
   const handleDelete = async (id) => {
     try {
-      const deleteUrl = `${BASE_URL}${API_ENDPOINTS.transcript}/${id}`;
-      await axios.delete(deleteUrl);
+     const {}= await deleteMutation.mutateAsync(
+        id
+      );
       console.log("Deleted item with ID:", id);
-
-      // Update state to reflect deletion
-      setUploadData(uploadData.filter(item => item._id !== id));
     } catch (error) {
       console.error("Error deleting item:", error);
       // Handle error (show message, etc.)
@@ -71,7 +88,7 @@ const Upload = () => {
 
   const handleEdit = (id) => {
     // Find the correct item to edit based on ID from uploadData
-    const itemToEdit = uploadData.find(item => item._id === id);
+    const itemToEdit = uploadData.find((item) => item._id === id);
     if (itemToEdit) {
       navigate(`/project/${slug.slug}/edit-transcript/`, {
         state: { project, slug, upload: itemToEdit }, // Pass the item to edit as upload state
@@ -144,6 +161,12 @@ const Upload = () => {
             </tr>
           </thead>
           <tbody>
+           {isUploadDataLoading ? (
+           <>
+           <div>loading..</div>
+           
+           </>  
+           ):(<>
             {uploadData.map((item) => (
               <tr key={item._id}>
                 <td>{item.name}</td>
@@ -167,6 +190,7 @@ const Upload = () => {
                 </td>
               </tr>
             ))}
+           </>)}
           </tbody>
         </table>
       </section>

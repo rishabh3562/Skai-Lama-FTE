@@ -1,25 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/UploadModal.css"
-import CloseIcon from '../assets/closeX.svg'
+import "../styles/UploadModal.css";
+import CloseIcon from '../assets/closeX.svg';
 import { BASE_URL, API_ENDPOINTS } from '../utils/constants';
-const UploadModal = ({ isOpen, handleClose, projectId,IconImageFromCard }) => {
+import { useMutation } from '@tanstack/react-query';
+import { queryClient } from "../main"; // Import the existing queryClient
+
+const UploadModal = ({ isOpen, handleClose, projectId, IconImageFromCard }) => {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
 
-  const handleSave = async () => {
-    try {
-      const response = await axios.post(`${BASE_URL}${API_ENDPOINTS.transcript}`, {
-        projectId,
-        name,
-        description: link, // Assuming description and link are the same for your use case
-      });
-      console.log("Transcript saved:", response.data);
+  const createMutation = useMutation({
+    mutationFn: (formData) =>
+      axios.post(`${BASE_URL}${API_ENDPOINTS.transcript}`, formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["uploads", projectId]);
       handleClose(); // Close modal after successful save
-    } catch (error) {
+    },
+    onError: (error) => {
       console.error("Error saving transcript:", error);
       // Handle error (show message, etc.)
-    }
+    },
+  });
+
+  const handleSave = () => {
+    createMutation.mutate({
+      projectId,
+      name,
+      description: link, // Assuming description and link are the same for your use case
+    });
   };
 
   const handleChangeName = (e) => {
@@ -52,14 +61,12 @@ const UploadModal = ({ isOpen, handleClose, projectId,IconImageFromCard }) => {
       <div className="uploadcard-modal-content">
         <div className="uploadcard-modal-header">
           <div className="uploadcard-modal-header-left">
-          <img src={IconImageFromCard} alt="logo" className="uploadcard-modal-logo" />
-          <h2>Upload Transcript</h2>
+            <img src={IconImageFromCard} alt="logo" className="uploadcard-modal-logo" />
+            <h2>Upload Transcript</h2>
           </div>
-         
           <button className="uploadcard-close-btn" onClick={handleClose}>
             <img src={CloseIcon} alt="close" />
-            
-            </button>
+          </button>
         </div>
         <div className="uploadcard-modal-input">
           <label htmlFor="name">Name</label>
@@ -82,7 +89,6 @@ const UploadModal = ({ isOpen, handleClose, projectId,IconImageFromCard }) => {
           />
         </div>
         <div className="uploadcard-modal-actions">
-          
           <button onClick={handleSave} className="uploadcard-modal-btn upload">
             Upload
           </button>
