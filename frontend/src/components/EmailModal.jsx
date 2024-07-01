@@ -1,17 +1,18 @@
+// EmailModal.jsx
+
 import React, { useState } from "react";
 import { useEmail } from "../context/EmailContext";
 import "../styles/EmailModal.css";
 
 const EmailModal = () => {
   const [emailInput, setEmailInput] = useState("");
-  const { saveEmail} = useEmail();
+  const { saveUserData } = useEmail();
   const [isOpen, setIsOpen] = useState(true); // State to control modal open/close
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const metadata = { userAgent: navigator.userAgent, timestamp: new Date() };
-    await saveEmail(emailInput, metadata);
-
+    await saveUserData(emailInput, metadata);
     setEmailInput(""); // Clear input after submission
     setIsOpen(false); // Close modal after submission
   };
